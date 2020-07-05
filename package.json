@@ -1,0 +1,17 @@
+{
+  "name": "tmsbackend",
+  "version": "0.0.0",
+  "description": "TMSBackend",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "sqlite3": "^5.0.0",
+    "validate.js": "^0.13.1"
+  },
+  "dependencies": {
+    "util": "^0.12.3"
+  }
+}
