@@ -12,11 +12,11 @@ function setupFolders() { }
 
 function setupDatabase() {
     let db = new Database('./db/test.db');
-    Logger.log('creating a database session');
+
+    Logger.debug('getting the current database session');
     dbConnection = db.getSession();
-    let h = "Hello";
-    let w = "World";
-    Logger.log('%s ', h, w);
+
+
 
 
 }
@@ -31,7 +31,7 @@ function setupTables(conn) {
                 throw new Error(err.message);
             }
         });*/
-        Logger.error("%s", "Oh no :( an unexpected error has occurred.");
+        Logger.debug('creating database tables if they don\'t exist');
     }
 
 }
