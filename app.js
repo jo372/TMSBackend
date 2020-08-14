@@ -3,37 +3,11 @@
 const express = require('express');
 const app = express();
 
-const sqlite3 = require('sqlite3').verbose();
 const validate = require('validate.js');
 const Database = require('./lib/Database');
-const winston = require('winston');
+const logger = require('./lib/Logger');
 const env = require('./env.js');
-
-function getTodaysDate() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
-    let yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    return `${dd}-${mm}-${yyyy}`;
-}
-
-// setting up my logger for all modules.
-winston.loggers.add(env.DEFAULT_LOGGER_NAME, {
-    level: 'debug',
-    transports : [
-        new winston.transports.Console(),
-        new winston.transports.File({filename:  `logs/${getTodaysDate()}-combined.log`})
-    ]
-});
-
-// getting the current logger.
-const logger = winston.loggers.get(env.DEFAULT_LOGGER_NAME);
+const mysqlDatabase = new Database(env.DATABASE_PATH);
 
 
 // get users tasks by id
@@ -43,6 +17,10 @@ app.get('/users/:userid/tasks/:taskid', function(req, res) {
     if(userId && taskId) {
         res.send(`userId: ${userId}\ntaskId: ${taskId}`);
         //TODO: check that the requesting user is the current logging in user.
+        logger.log({
+            level: 'info',
+            message: `Requested userId: ${userId}, taskId : ${taskId}`
+        });
     }
 });
 
@@ -59,11 +37,13 @@ app.get('/users/:userid/tasks', function(req, res) {
     } else {
         // return defaults.
     }
-})
-
+});
 
 let listener = app.listen(env.APPLICATION_LISTENING_PORT, function() {
-    console.log(`Listening on port ${listener.address().port}`);
+    logger.log({
+        level: 'info',
+        message: `Listening on port ${listener.address().port}`
+    });
 });
 
 
@@ -77,7 +57,7 @@ function setupFolders() { }
 function setupDatabase() {
     let db = new Database('./db/test.db');
 
-    Logger.debug('getting the current database session');
+    Logger.js.debug('getting the current database session');
     dbConnection = db.getSession();
 
 
@@ -95,7 +75,7 @@ function setupTables(conn) {
                 throw new Error(err.message);
             }
         });
-        Logger.debug('creating database tables if they don\'t exist');
+        Logger.js.debug('creating database tables if they don\'t exist');
     }
 
 }
