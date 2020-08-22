@@ -2,7 +2,7 @@
   "name": "tmsbackend",
   "version": "0.0.0",
   "description": "TMSBackend",
-  "main": "./dist/app.js",
+  "main": "dist/app.js",
   "author": {
     "name": ""
   },
@@ -28,6 +28,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mysql": "^2.18.1",
+    "pm2": "^4.4.1",
     "util": "^0.12.3",
     "winston": "^3.3.3"
   }
