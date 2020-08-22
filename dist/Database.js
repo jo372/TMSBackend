@@ -84,9 +84,9 @@ class Database {
     getPool() : Pool { return this.pool; }
     getConnection() : Promise<PoolConnection> { return this.getPool().acquire(); }
     runSQL(sqlStatement: string, cb: (statement: BetterSqlite3.Statement<any[]>) => void) : void {
-        this.getConnection().then(db => {
-            cb(db.prepare(sqlStatement));
-            db.release();
+        this.getConnection().then(db1 => {
+            cb(db1.prepare(sqlStatement));
+            db1.release();
         });
     }
 }
