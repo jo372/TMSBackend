@@ -16,6 +16,14 @@ app.get('/users/:userid/tasks/:taskid', (req : any, res : any) => {
     }
 });
 
+app.get('/login', (req: any, res: any) => {
+    Logger.info('Logging in user');
+});
+
+app.get('/logout', (req: any, res: any) => {
+    Logger.info('Logging out user');
+});
+
 // get all of users tasks
 app.get('/users/:userid/tasks', (req: any, res : any)  => {
     const query : any = req.query;
@@ -30,6 +38,8 @@ app.get('/users/:userid/tasks', (req: any, res : any)  => {
         // return defaults.
     }
 });
+
+Logger.info(process.env.NODE_PORT);
 
 app.listen(Env.APPLICATION_LISTENING_PORT, () => {
    Logger.info(`Listening on port ${Env.APPLICATION_LISTENING_PORT}`);
