@@ -3,3 +3,6 @@ db/**
 .idea
 package-lock.json
 logs/**
+!logs
+dist/**
+!dist
