@@ -1,8 +1,17 @@
+# removing node modules
 node_modules/**
+
+#remove the database folder that will be created, running the bat/setup.bat.
 db/**
+
+# removing the .idea folder
 .idea
+
+# removing the package lock.json file.
 package-lock.json
-logs/**
-!logs
+
+# removing all the logs
+logs/*.log
+
+# removing all the compiled js files.
 dist/**
-!dist
